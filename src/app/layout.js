@@ -27,7 +27,6 @@ export default function Layout({ children }) {
           <div className="flex h-screen w-screen">
             <Sidebar />
             <main className="flex-1">
-              <ThemeToggle />
               {children}
             </main>
           </div>

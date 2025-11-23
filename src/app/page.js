@@ -1,10 +1,12 @@
 // app/page.js
 "use client";
 
+import { ThemeToggle } from "@/components/theme-toggle";
 import {
   Card,
   CardHeader,
   CardTitle,
+  CardDescription,
   CardContent,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -18,30 +20,30 @@ import {
   FileText,
 } from "lucide-react";
 
-const statCards = [
+const stats = [
   {
     label: "Total Students",
     value: 0,
-    iconBg: "#0b74c4",
     icon: Users,
+    circleClass: "bg-sky-500",
   },
   {
     label: "Approved Profiles",
     value: 0,
-    iconBg: "#2f9e44",
     icon: UserCheck,
+    circleClass: "bg-emerald-500",
   },
   {
     label: "Pending Profiles",
     value: 0,
-    iconBg: "#f2a500",
     icon: UserX,
+    circleClass: "bg-amber-500",
   },
   {
     label: "AI Queue",
     value: 0,
-    iconBg: "#e03131",
     icon: Bot,
+    circleClass: "bg-red-500",
   },
 ];
 
@@ -59,99 +61,127 @@ const recentActivity = [
 ];
 
 export default function DashboardPage() {
-  // return (
-    // <div className="min-h-screen bg-muted/40">
-    //   <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-6 md:px-6">
-    //     {/* Top bar */}
-    //     <header className="flex items-center justify-between">
-    //       <h1 className="text-2xl font-semibold tracking-tight">
-    //         Admin Dashboard
-    //       </h1>
-    //       <span className="text-sm text-muted-foreground">
-    //         Welcome, Admin!
-    //       </span>
-    //     </header>
+  return (
+    <div  className="min-h-screen bg-background text-foreground bg-[radial-gradient(circle_at_top,_rgba(45,212,191,0.16)_0,_transparent_55%)]">
+      {/* yeh main ko apne layout ke andar sidebar ke right wale part me rakho */}
+      <main className="flex min-h-screen flex-col">
+        {/* CENTERED CONTENT */}
+        <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-6 px-4 py-6 md:px-8 lg:py-8">
+          {/* TOP BAR */}
+          <header className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+                Overview
+              </p>
+              <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">
+                Admin Dashboard
+              </h1>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Manage school students, approvals &amp; AI verification.
+              </p>
+            </div>
 
-    //     {/* Top statistic cards */}
-    //     <section className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-    //       {statCards.map((card) => {
-    //         const Icon = card.icon;
-    //         return (
-    //           <Card
-    //             key={card.label}
-    //             className="rounded-xl border border-border bg-card shadow-sm"
-    //           >
-    //             <CardContent className="flex flex-col items-center justify-center gap-3 py-5">
-    //               {/* colored circle + icon */}
-    //               <div
-    //                 className="flex h-12 w-12 items-center justify-center rounded-full text-white"
-    //                 style={{ backgroundColor: card.iconBg }}
-    //               >
-    //                 <Icon className="h-6 w-6" />
-    //               </div>
-    //               <div className="text-2xl font-semibold text-foreground">
-    //                 {card.value}
-    //               </div>
-    //               <div className="text-[11px] font-medium text-muted-foreground">
-    //                 {card.label}
-    //               </div>
-    //             </CardContent>
-    //           </Card>
-    //         );
-    //       })}
-    //     </section>
+            <div className="flex items-center gap-3">
+              <Card className="py-2">
+                <CardContent className="flex items-center gap-2 p-0 px-4 py-0">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                  <span>Academic Session 2024–25</span>
+                </CardContent>
+              </Card>
 
-    //     {/* Quick Actions */}
-    //     <section>
-    //       <Card className="rounded-xl border border-border bg-card shadow-sm">
-    //         <CardHeader className="pb-3">
-    //           <CardTitle className="text-sm font-semibold text-foreground">
-    //             Quick Actions
-    //           </CardTitle>
-    //         </CardHeader>
-    //         <CardContent>
-    //           <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
-    //             {quickActions.map((action) => {
-    //               const Icon = action.icon;
-    //               return (
-    //                 <Button
-    //                   key={action.label}
-    //                   variant="outline"
-    //                   className="flex w-full items-center justify-start gap-2 rounded-full border-[#0b74c4] text-xs md:text-sm text-[#0b74c4] hover:bg-[#0b74c4]/5"
-    //                 >
-    //                   <Icon className="h-4 w-4" />
-    //                   <span>{action.label}</span>
-    //                 </Button>
-    //               );
-    //             })}
-    //           </div>
-    //         </CardContent>
-    //       </Card>
-    //     </section>
+              {/* right top corner theme switcher */}
+              <ThemeToggle />
+            </div>
+          </header>
 
-    //     {/* Recent Activity */}
-    //     <section>
-    //       <Card className="rounded-xl border border-border bg-card shadow-sm">
-    //         <CardHeader className="pb-3">
-    //           <CardTitle className="text-sm font-semibold text-foreground">
-    //             Recent Activity
-    //           </CardTitle>
-    //         </CardHeader>
-    //         <CardContent className="space-y-3">
-    //           {recentActivity.map((item, idx) => (
-    //             <div
-    //               key={idx}
-    //               className="flex items-center gap-3 rounded-lg bg-muted/60 px-4 py-3 text-xs md:text-sm"
-    //             >
-    //               {/* left blue line */}
-    //               <div className="h-6 w-[3px] rounded-full bg-[#0b74c4]" />
-    //               <span className="text-muted-foreground">{item}</span>
-    //             </div>
-    //           ))}
-    //         </CardContent>
-    //       </Card>
-    //     </section>
-    //   </main>
-    // </div>
-  // );
+          {/* STATS ROW */}
+          <section className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+            {stats.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Card
+                  key={item.label}
+                >
+                  <CardContent className="flex items-center justify-between px-6 py-2">
+                    <div className="space-y-1">
+                      <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                        {item.label}
+                      </p>
+                      <p className="text-3xl font-semibold tabular-nums">
+                        {item.value}
+                      </p>
+                    </div>
+                    <div
+                      className={`flex h-12 w-12 items-center justify-center rounded-full text-white ${item.circleClass}`}
+                    >
+                      <Icon className="h-6 w-6" />
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </section>
+
+          {/* QUICK ACTIONS CARD */}
+          <Card>
+            <CardHeader className="px-5 pb-3 pt-5">
+              <div className="flex items-center justify-between">
+                <CardTitle className="text-sm font-semibold">
+                  Quick Actions
+                </CardTitle>
+                <CardDescription className="text-[11px]">
+                  Most common admin tasks in one place.
+                </CardDescription>
+              </div>
+            </CardHeader>
+            <CardContent className="px-5 pb-5">
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+                {quickActions.map((action) => {
+                  const Icon = action.icon;
+                  return (
+                    <Button
+                      key={action.label}
+                      type="button"
+                      variant="outline"
+                      className="h-9 w-full justify-center gap-2 rounded-full text-xs font-medium"
+                    >
+                      <Icon className="h-4 w-4" />
+                      <span>{action.label}</span>
+                    </Button>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* RECENT ACTIVITY CARD */}
+          <Card>
+            <CardHeader className="px-5 pb-3 pt-5">
+              <CardTitle className="text-base font-semibold text-sky-700 dark:text-sky-400">
+                Recent Activity
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="px-5 pb-5">
+              <div className="space-y-3">
+                {recentActivity.map((item, idx) => (
+                  <div
+                    key={idx}
+                    className="rounded-lg bg-muted px-4 py-3 shadow-sm"
+                  >
+                    <div className="flex items-center gap-3">
+                      {/* left blue strip */}
+                      <div className="h-7 w-[3px] rounded-full bg-sky-600" />
+                      <p className="text-xs text-muted-foreground md:text-sm">
+                        {item}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </main>
+    </div>
+  );
 }
